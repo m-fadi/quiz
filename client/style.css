@@ -1,0 +1,113 @@
+.register-input {
+    border-radius: 100px;
+    border: 1px solid black;
+    margin-block: 10px;
+    display: block;
+    height: 2rem;
+    text-indent: 10px;
+}
+
+.register-input input[type="submit"] {
+    padding: 10px;
+}
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
+
+    justify-content: center;
+}
+#welcome {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+/* ----------------------------------------------------------------------------------------- */
+.quiz {
+    width: 100%;
+    padding: 20px;
+}
+
+.main-menu {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-btn,
+.finish-btn {
+    width: 193px;
+    height: 52px;
+    margin: 0 auto;
+    border-radius: 15px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    background: #4d5b9e;
+    color: white;
+}
+.title {
+    font-family: "Karla";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 19px;
+
+    color: #293264;
+}
+.options {
+   display: flex;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    gap: 5px;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+.option {
+       gap: 8px;
+     padding: 3px 10px; 
+    border-radius: 8px;
+    /* border:solid gray 0.5px; */
+     box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    font-size: small;
+    cursor: pointer;
+}
+
+.option:focus,
+.option:hover {
+    border: none;
+    background-color: #d6dbf5;
+    padding: calc(0.25em + 1px) calc(0.75em + 1px);
+    outline: none;
+}
+.question {
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    /* align-content: stretch; */
+    align-items: flex-start;
+}
+
+.finish-btn {
+    position: relative;
+    top: 50%;
+    left: 50%;
+}
+
+.dataLoading {
+    font-size: 20px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+.question-text {
+    font-size: small;
+}

@@ -1,0 +1,139 @@
+/* .App {
+  width: 100%;
+  height: 100vh;
+
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-menu{
+  height: 80vh;
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+}
+
+.start-btn,
+.finish-btn {
+  padding: 15px 40px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightseagreen;
+  font-size: 20px;
+}
+
+.finish-btn {
+  background: skyblue;
+}
+.start-btn:hover {
+  background-color: seagreen;
+  color: white;
+  transition: 0.7s;
+}
+.finish-btn:hover {
+  background-color: slateblue;
+  color: white;
+  transition: 0.7s;
+}
+
+.choices {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.choice {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px 5px;
+}
+.question{
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
+.App {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.quiz {
+    width: 100%;
+    padding: 20px;
+}
+
+.main-menu {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-btn,
+.finish-btn {
+    width: 193px;
+    height: 52px;
+    margin: 0 auto;
+    border-radius: 15px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    background: #4d5b9e;
+    color: white;
+}
+.title {
+    font-family: "Karla";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 19px;
+
+    color: #293264;
+}
+.choices {
+    display: flex;
+    padding-bottom: 15px;
+    padding-top: 20px;
+    gap: 15px;
+}
+.choice {
+    gab: 20px;
+    padding: 10px 15px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.choice:focus,
+.choice:hover {
+    border: none;
+    background-color: white;
+    padding: calc(0.25em + 1px) calc(0.75em + 1px);
+    outline: none;
+}
+.question {
+    padding-bottom: 20px;
+}
+
+.finish-btn {
+    position: relative;
+    top: 50%;
+    left: 50%;
+}
+
+.dataLoading {
+    font-size: 20px;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
