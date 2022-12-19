@@ -15,7 +15,7 @@ const QuizConfig = () => {
     const { category, difficulty, type, numberQuestions, score } = useSelector(
         (state) => state.quiz
     );
-const navigate= useNavigate()
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { loading, data } = useFetch({
@@ -42,7 +42,7 @@ const navigate= useNavigate()
         e.preventDefault();
         fetchData({ url: quizUrl }).then((result) => {
             const questionsList = sortQuestions(result.results);
-            console.log("questionsList in Config", questionsList);
+           
             dispatch(getQuestions(questionsList));
             navigate("/quiz");
         });
