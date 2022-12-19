@@ -6,7 +6,7 @@ const NumOfQuestions = () => {
     //const category = useSelector((state) => state.quiz);
     const dispatch = useDispatch();
     const handleChange = (e) => {
-        console.log(e.target.value)
+       
         dispatch(handleNumberQuestions(e.target.value));
     };
     return (

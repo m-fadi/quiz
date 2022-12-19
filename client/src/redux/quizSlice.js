@@ -12,19 +12,15 @@ export const quizSlice = createSlice({
     initialState,
     reducers: {
         handleCategory: (state, action) => {
-            console.log("SSSSlice", action.payload);
             return { ...state, category: action.payload };
         },
         handledifficulty: (state, action) => {
-            console.log("SSSSlice diff", action.payload);
             return { ...state, difficulty: action.payload.level };
         },
         handleType: (state, action) => {
-            console.log("SSSSlice type", action.payload);
             return { ...state, type: action.payload.type };
         },
         handleNumberQuestions: (state, action) => {
-            console.log("SSSSlice number", action.payload);
             return { ...state, numberQuestions: action.payload };
         },
         handleScore: (state, action) => {
