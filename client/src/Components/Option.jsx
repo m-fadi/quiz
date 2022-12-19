@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { getQuestions } from "../redux/questionsSlice";
+import { updateIsHeld } from "../redux/questionsSlice";
 const Option = (props) => {
     //const questions = useSelector((state) => state.questions);
     const { questionId } = props;
@@ -7,7 +7,7 @@ const Option = (props) => {
     const dispatch = useDispatch();
     const handleClick = (e) => {
         console.log("option idXXXXXXXXXXXXX", e.target);
-        dispatch(getQuestions({ isHeld: true, quesId:questionId,optionId:e.target.id}));
+        dispatch(updateIsHeld({ isHeld: true, quesId:questionId,optionId:e.target.id}));
     };
     const optionsList = props.allAnswers.map((option, index) => {
         const styles = { background: option.isHeld ? "lightblue" : "white" };
