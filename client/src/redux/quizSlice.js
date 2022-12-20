@@ -24,8 +24,23 @@ export const quizSlice = createSlice({
             return { ...state, numberQuestions: action.payload };
         },
         handleScore: (state, action) => {
-            return { ...state, score: action.payload };
+            //console.log("action.payload in QiusSlice", action.payload);
+            let score =0;
+             action.payload.questions.map((question) => {
+                //console.log("question in QiusSlice", question);
+                question.allAnswers.map((option) => {
+                    if (option.isHeld && option.isCorrect) {
+                        console.log("option in QiusSlice", option);
+                        score += 1;
+                    }
+                });
+            });
+            console.log("scoooore", score);
+            state.score=score
         },
+        // decrementScore: (state, action) => {
+        //     state.score -= 1;
+        // },
     },
 });
 export const {
@@ -33,6 +48,7 @@ export const {
     handledifficulty,
     handleType,
     handleNumberQuestions,
+    decrementScore,
     handleScore,
 } = quizSlice.actions;
 
