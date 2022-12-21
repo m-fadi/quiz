@@ -8,7 +8,7 @@ import fetchData from "../utils/fetchData";
 import { getQuestions } from "../redux/questionsSlice";
 import { sortQuestions } from "../utils/sortQuestions";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { QuizContext } from "../utils/Context.js";
 //--------------------------------------------------------------------------//
 //--------------------------------------------------------------------------//
@@ -23,9 +23,9 @@ const QuizConfig = () => {
         useContext(QuizContext);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const [error, setError] = useState("");
     // fetching Categories from Api with costumed hook useFetch
-    const { loading, data } = useFetch({ 
+    const { loading, data } = useFetch({
         url: "https://opentdb.com/api_category.php",
     });
 
@@ -49,10 +49,19 @@ const QuizConfig = () => {
 
     const handleSubmit = (e) => {
         console.log("quizUrl in QuizConig", quizUrl);
-       console.log("questions in QuizConfig on submit quizQonfig", questions.length);
-        if (questions.length === 0) navigate("/");
+        console.log(
+            "questions in QuizConfig on submit quizQonfig",
+            questions.length
+        );
+
         e.preventDefault();
         fetchData({ url: quizUrl }).then((result) => {
+            if (!result) {
+                setError(
+                    "No Results. The API doesn't have enough questions for your query"
+                );
+                return ;
+            }
             const questionsList = sortQuestions(result.results);
 
             dispatch(getQuestions(questionsList));
@@ -64,11 +73,14 @@ const QuizConfig = () => {
         });
     };
 
+     
+
     return (
         <>
             {data.errorMsg && (
                 <h4 style={{ color: "red" }}> {data.errorMsg}</h4>
             )}
+            
             {!data.errorMsg && (
                 <form
                     onSubmit={handleSubmit}
