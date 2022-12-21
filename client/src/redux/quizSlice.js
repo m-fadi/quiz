@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    category: '',
+    category: { id: 20, name: "Mythology" },
     difficulty: "easy",
     type: "boolean",
     numberQuestions: 3,
     score: 0,
-    
 };
 export const quizSlice = createSlice({
     name: "quiz",
