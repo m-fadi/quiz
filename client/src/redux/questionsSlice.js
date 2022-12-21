@@ -10,24 +10,22 @@ export const questionsSlice = createSlice({
             state.push(...action.payload);
         },
         updateIsHeld: (state, action) => {
-            console.log("payload in updateIsHeld", action.payload);
-            console.log("state in update: ", current(state));
+            const clickedQues =
+                state &&
+                state.filter((ques,index) => {
+                    return ques.id === action.payload.quesId;
+                });
 
-            const results = JSON.stringify(current(state));
-            const resultsParsed = JSON.parse(results);
-
-            const test = resultsParsed.map((question, index) => {
-                if (question.id === action.payload.quesId) {
-                    question.allAnswers[action.payload.optionId].isHeld =
-                        !question.allAnswers[action.payload.optionId].isHeld;
-                    console.log(question.allAnswers);
+            const question = clickedQues[0].allAnswers.map((opt) => {
+                if (opt.id == action.payload.optionId) {
+                    return { ...opt, isHeld: true };
+                } else {
+                    return { ...opt, isHeld: false };
+                    //return opt;
                 }
-
-                return question;
             });
-
-            console.log("TEST: ", test);
-            return [...test];
+            console.log("state at clicked", state.findIndex(question=> question.id==clickedQues.id));
+            return [...state];
         },
     },
 });

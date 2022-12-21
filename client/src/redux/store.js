@@ -8,4 +8,12 @@ const store = configureStore({
         questions: questionsReducer,
     },
 });
+// const rootReducer = (state, action) => {
+//     if (action.type === "counter/logout") {
+//         state = undefined;
+//     }
+//     return combinedReducer(state, action);
+// };
 export default store;
+
+

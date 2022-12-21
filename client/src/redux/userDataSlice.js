@@ -7,7 +7,7 @@ const initialState = {
     password:"",
     
 };
-export const quizSlice = createSlice({
+export const userDataSlice = createSlice({
     name: "userData",
     initialState,
     reducers: {
@@ -35,6 +35,6 @@ export const {
     handleLastName,
     handleEmail,
     handlePassword,
-} = quizSlice.actions;
+} = userDataSlice.actions;
 
-export default quizSlice.reducer;
+export default userDataSlice.reducer;

@@ -41,6 +41,7 @@ const InputControl = (props) => {
         setValue(e.target.value);
 
         if (label === "Category") {
+            
             dispatch(handleCategory(e.target.value));
         } else if (label === "Type") {
             console.log("InputField", e.target.value);

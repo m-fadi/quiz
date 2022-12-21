@@ -6,8 +6,8 @@ export const difficulties = [
 ];
 export const types = [
     { id: nanoid(), type: "multiple" },
-    { id: nanoid(), type: "true or False" },
-    { id: nanoid(), level: "hard" },
+    { id: nanoid(), type: "boolean" },
+    
 ];
 
 

@@ -7,7 +7,7 @@ export const sortQuestions = (questions) => {
             value: answer,
             isHeld: false,
             isCorrect: false,
-            styles: { background: "white" },
+            styles: { background: "green" },
             id:index,
         }));
         //console.log("incorrect in sort", incorrectAnswers);
