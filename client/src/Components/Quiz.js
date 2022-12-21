@@ -5,19 +5,25 @@ import Question from "../Components/Question";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
+//---------------------------------------------------------------------------------------//
 export default function Quiz() {
     const { gameState, setGameState, setDataLoaded, dataLoaded } =
         useContext(QuizContext);
     const questions = useSelector((state) => state.questions);
+    const { category } = useSelector((state) => state.quiz); // used for the scoreMsg
+
     const [quizData, setQuizData] = useState([]);
     const [score, setScore] = useState(0);
     const [butttonText, setButtonText] = useState("Finish Quiz");
+    const [scoreMsg, setScoreMsg] = useState("");
     const [finished, setFinished] = useState(false);
     const navigate = useNavigate();
-    
+
+    //---------------------------------------------------------------------------------------//
+
     useEffect(() => {
         console.log("questions in Quiz on submit quiz", questions);
-        
+
         setQuizData(questions);
         setDataLoaded(false);
     }, []);
@@ -74,6 +80,8 @@ export default function Quiz() {
         }
         setFinished(true);
         setButtonText("Try again");
+        setScoreMsg(scoreMsgTxt);
+        console.log(scoreMsgTxt, score);
     };
 
     const questionElements = quizData.map((question) => {
@@ -88,7 +96,15 @@ export default function Quiz() {
             />
         );
     });
-    console.log("question elements in quiz", questionElements);
+
+    const scoreMsgTxt =
+        score >= quizData.length
+            ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
+            : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`;
+    const styles =
+        score >= quizData.length / 2 ? { color: "green" } : { color: "red" };
+
+    //console.log("question elements in quiz", questionElements);
     return (
         <div className="quiz">
             {dataLoaded ? (
@@ -98,8 +114,10 @@ export default function Quiz() {
                     {questionElements}
 
                     <div className="finish">
-                        <p>
-                            your score is: {score}/{quizData.length}
+                        <p style={styles}>
+                            {score >= quizData.length
+                                ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
+                                : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`}
                         </p>
                         <div className="quiz-btns">
                             <button
@@ -121,18 +139,3 @@ export default function Quiz() {
         </div>
     );
 }
-/* <div className="quiz">
-{isLoading ? (
-  <div className="quiz__loading--box">
-    <h3 className="quiz__loading--text">One moment please...</h3>
-  </div>
-) : (
-  <div className="quiz">
-    {questionElements}
-    {buttonElements()}
-  </div>
-)}
-<img className="yellowBlob" src={yellowBlob} alt="" />
-<img className="blueBlob" src={blueBlob} alt="" />
-</div>
-); */
