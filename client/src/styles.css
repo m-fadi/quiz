@@ -75,7 +75,7 @@
     margin:0;
     text-align: start;
     font-size: small;
-    
+
      box-shadow: inset 0 -1em 5em rgba(241, 235, 235, 0.466), 0 0 0 2px rgb(255, 255, 255),
     0.1em 0.1em 1em rgba(0, 0, 0, 0.3); 
 }
@@ -100,7 +100,7 @@
 }
 
 .finish p{
-
+font-size: small;
 }
 .start-over-btn{
 

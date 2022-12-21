@@ -31,7 +31,7 @@ export default function Register() {
             .then((result) => {
                 console.log("results in app", result);
                 if (result.success) {
-                    navigate("/App");
+                    location.replace("/App");
                     //location.reload();
                     setUserData(...userData, result.data);
                     console.log("userData at reg", userData);

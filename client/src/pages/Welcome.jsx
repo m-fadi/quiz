@@ -23,12 +23,12 @@ export default function Welcome() {
                             path="/register"
                             element={<Registration />}
                         ></Route>
-                        
+                        {/*                         
                         <Route
-                            path="/quiz"
-                            element={<Quiz />}
+                            path="/"
+                            element={<QuizConfig />}
                         ></Route>
-                        
+                         */}
                     </Routes>
                 </BrowserRouter>
             </div>

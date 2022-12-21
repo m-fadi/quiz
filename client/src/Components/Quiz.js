@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "../utils/Context.js";
 import { nanoid } from "nanoid";
 import Question from "../Components/Question";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 //---------------------------------------------------------------------------------------//
 export default function Quiz() {
-    const { gameState, setGameState, setDataLoaded, dataLoaded } =
+    const { setDataLoaded, dataLoaded } =
         useContext(QuizContext);
     const questions = useSelector((state) => state.questions);
     const { category } = useSelector((state) => state.quiz); // used for the scoreMsg
@@ -15,16 +15,16 @@ export default function Quiz() {
     const [quizData, setQuizData] = useState([]);
     const [score, setScore] = useState(0);
     const [buttonText, setButtonText] = useState("Finish Quiz");
-    const [scoreMsg, setScoreMsg] = useState("");
+   
     const [finished, setFinished] = useState(false);
-    const [questionStyle, setQuestionStyle] = useState({ color: "" });
-    const navigate = useNavigate();
+    
+    
 
     //---------------------------------------------------------------------------------------//
 
     useEffect(() => {
         console.log("questions in Quiz on submit quiz", questions);
-        
+
         setQuizData(questions);
         setDataLoaded(false);
     }, []);
@@ -58,42 +58,34 @@ export default function Quiz() {
         else {
             quizData.map((question) =>
                 question.allAnswers.map((choice) => {
-                    console.log("choice.value", choice);
-
                     if (choice.isHeld) {
-                        //if (choice.value !== question.correct_answer) {
+                       
                         if (!choice.isCorrect) {
-                            console.log("the wqong answes ques", question);
-                            setQuestionStyle({ color: "red" });
-                            console.log(
-                                "the wqong answes style",
-                                questionStyle
-                            );
-                            choice.styless = { background: "red" };
+                            question.style = { color: "red" };
+                           
+
+                            choice.style = { background: "red" };
                         } else {
                             setScore((prev) => prev + 1);
-                            setQuestionStyle({ color: "lightgreen" });
-                            choice.styless = {
-                                background: "lightgreen",
+                            
+                            question.style = { color: "green" };
+                            choice.style = {
+                                background: "green",
                             };
                         }
-                    } else {
-                        choice.isCorrect &&
-                            (choice.styless = { background: "lightgreen" });
                     }
                 })
             );
         }
         setFinished(true);
         setButtonText("Try again");
-        setScoreMsg(scoreMsgTxt);
-        console.log(scoreMsgTxt, score);
+   
     };
 
     const questionElements = quizData.map((question) => {
         return (
             <Question
-                style={questionStyle}
+                style={question.style}
                 id={question.id}
                 key={question.id}
                 question={question.question}
@@ -104,20 +96,19 @@ export default function Quiz() {
         );
     });
 
-    const scoreMsgTxt =
-        score >= quizData.length/2
-            ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
-            : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`;
+    // const scoreMsgTxt =
+    //     score >= quizData.length / 2
+    //         ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
+    //         : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`;
     const styles =
         score >= quizData.length / 2 ? { color: "green" } : { color: "red" };
 
     console.log("question elements in quiz", questionElements);
     if (questions.length === 0) {
-        
         location.replace("/");
         return;
     }
-     return (
+    return (
         <div className="quiz">
             {dataLoaded ? (
                 <div className="dataLoading"></div>
@@ -126,7 +117,12 @@ export default function Quiz() {
                     {questionElements}
 
                     <div className="finish">
-                        <p style={styles}>{scoreMsgTxt}</p>
+                        <p style={styles}>
+                            {finished &&
+                                (score >= quizData.length / 2
+                                    ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
+                                    : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`)}
+                        </p>
                         <div className="quiz-btns">
                             <button
                                 className="finish-btn start-over-btn "
