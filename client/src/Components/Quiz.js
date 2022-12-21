@@ -14,16 +14,17 @@ export default function Quiz() {
 
     const [quizData, setQuizData] = useState([]);
     const [score, setScore] = useState(0);
-    const [butttonText, setButtonText] = useState("Finish Quiz");
+    const [buttonText, setButtonText] = useState("Finish Quiz");
     const [scoreMsg, setScoreMsg] = useState("");
     const [finished, setFinished] = useState(false);
+    const [questionStyle, setQuestionStyle] = useState({ color: "" });
     const navigate = useNavigate();
 
     //---------------------------------------------------------------------------------------//
 
     useEffect(() => {
         console.log("questions in Quiz on submit quiz", questions);
-
+        
         setQuizData(questions);
         setDataLoaded(false);
     }, []);
@@ -50,8 +51,7 @@ export default function Quiz() {
 
         setDataLoaded(true);
         setQuizData([]);
-        navigate("/");
-        location.reload();
+        location.replace("/");
     };
     const finishQuiz = () => {
         if (finished) resetQuiz();
@@ -63,10 +63,16 @@ export default function Quiz() {
                     if (choice.isHeld) {
                         //if (choice.value !== question.correct_answer) {
                         if (!choice.isCorrect) {
+                            console.log("the wqong answes ques", question);
+                            setQuestionStyle({ color: "red" });
+                            console.log(
+                                "the wqong answes style",
+                                questionStyle
+                            );
                             choice.styless = { background: "red" };
                         } else {
                             setScore((prev) => prev + 1);
-
+                            setQuestionStyle({ color: "lightgreen" });
                             choice.styless = {
                                 background: "lightgreen",
                             };
@@ -87,6 +93,7 @@ export default function Quiz() {
     const questionElements = quizData.map((question) => {
         return (
             <Question
+                style={questionStyle}
                 id={question.id}
                 key={question.id}
                 question={question.question}
@@ -98,27 +105,28 @@ export default function Quiz() {
     });
 
     const scoreMsgTxt =
-        score >= quizData.length
+        score >= quizData.length/2
             ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
             : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`;
     const styles =
         score >= quizData.length / 2 ? { color: "green" } : { color: "red" };
 
-    //console.log("question elements in quiz", questionElements);
-    return (
+    console.log("question elements in quiz", questionElements);
+    if (questions.length === 0) {
+        
+        location.replace("/");
+        return;
+    }
+     return (
         <div className="quiz">
             {dataLoaded ? (
-                <div className="dataLoading">is Loading...</div>
+                <div className="dataLoading"></div>
             ) : (
                 <div>
                     {questionElements}
 
                     <div className="finish">
-                        <p style={styles}>
-                            {score >= quizData.length
-                                ? `congratulation you scored ${score} of ${quizData.length} your knowledge in ${category.name} is good`
-                                : `sorry you scored ${score} of ${quizData.length} your knowledge in ${category.name} is not that good`}
-                        </p>
+                        <p style={styles}>{scoreMsgTxt}</p>
                         <div className="quiz-btns">
                             <button
                                 className="finish-btn start-over-btn "
@@ -130,7 +138,7 @@ export default function Quiz() {
                                 className="finish-btn"
                                 onClick={() => finishQuiz()}
                             >
-                                {butttonText}
+                                {buttonText}
                             </button>
                         </div>
                     </div>
