@@ -7,18 +7,15 @@ import { useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 //---------------------------------------------------------------------------------------//
 export default function Quiz() {
-    const { setDataLoaded, dataLoaded } =
-        useContext(QuizContext);
+    const { setDataLoaded, dataLoaded } = useContext(QuizContext);
     const questions = useSelector((state) => state.questions);
     const { category } = useSelector((state) => state.quiz); // used for the scoreMsg
 
     const [quizData, setQuizData] = useState([]);
     const [score, setScore] = useState(0);
     const [buttonText, setButtonText] = useState("Finish Quiz");
-   
+
     const [finished, setFinished] = useState(false);
-    
-    
 
     //---------------------------------------------------------------------------------------//
 
@@ -59,15 +56,21 @@ export default function Quiz() {
             quizData.map((question) =>
                 question.allAnswers.map((choice) => {
                     if (choice.isHeld) {
-                       
                         if (!choice.isCorrect) {
                             question.style = { color: "red" };
-                           
-
                             choice.style = { background: "red" };
+
+                            quizData.map((question) =>
+                                question.allAnswers.map((choice) => {
+                                    if (choice.isCorrect)
+                                        choice.style = {
+                                            background: "green",
+                                        };
+                                })
+                            );
                         } else {
                             setScore((prev) => prev + 1);
-                            
+
                             question.style = { color: "green" };
                             choice.style = {
                                 background: "green",
@@ -79,7 +82,6 @@ export default function Quiz() {
         }
         setFinished(true);
         setButtonText("Try again");
-   
     };
 
     const questionElements = quizData.map((question) => {
