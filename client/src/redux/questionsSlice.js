@@ -2,7 +2,6 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
     questions: [],
-    
 
     score: null,
 };
@@ -32,15 +31,11 @@ export const questionsSlice = createSlice({
             };
         },
         updateScore: (state, action) => {
-            
             return { ...state, score: action.payload };
         },
     },
 });
-export const {
-    updateIsHeld,
-   updateScore,
-    setQuestions,
-} = questionsSlice.actions;
+export const { updateIsHeld, updateScore, setQuestions } =
+    questionsSlice.actions;
 
 export default questionsSlice.reducer;
