@@ -1,78 +1,46 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = {
+    questions: [],
+    
+
+    score: null,
+};
 
 export const questionsSlice = createSlice({
     name: "questions",
     initialState,
     reducers: {
-        getQuestions: (state, action) => {
-            state.push(...action.payload);
+        setQuestions: (state, action) => {
+            console.log("action.payload Set'Questions", action.payload);
+            return { ...state, questions: [...action.payload] };
         },
         updateIsHeld: (state, action) => {
-            const clickedQues =
-                state &&
-                state.filter((ques,index) => {
-                    return ques.id === action.payload.quesId;
-                });
-
-            const question = clickedQues[0].allAnswers.map((opt) => {
-                if (opt.id == action.payload.optionId) {
-                    return { ...opt, isHeld: true };
-                } else {
-                    return { ...opt, isHeld: false };
-                    //return opt;
-                }
+            const allQues = [...current(state).questions];
+            const updatedQuestions = allQues.map((question) => {
+                if (question.id == action.payload.questionId) {
+                    return {
+                        ...question,
+                        allAnswers: action.payload.updatedQuestion,
+                    };
+                } else return question;
             });
-            console.log("state at clicked", state.findIndex(question=> question.id==clickedQues.id));
-            return [...state];
+            console.log(updatedQuestions);
+            return {
+                ...state,
+                questions: updatedQuestions,
+            };
+        },
+        updateScore: (state, action) => {
+            
+            return { ...state, score: action.payload };
         },
     },
 });
-export const { getQuestions, updateIsHeld } = questionsSlice.actions;
+export const {
+    updateIsHeld,
+   updateScore,
+    setQuestions,
+} = questionsSlice.actions;
 
 export default questionsSlice.reducer;
-
-// console.log("options", option);
-// console.log("optionId from payload", action.payload.optionId);
-// console.log("the clicked question", ques);
-
-// updateIsHeld: (state, action) => {
-//     // console.log("payload in updateIsHeld", action.payload);
-
-//     // const question = current(state).filter((ques) => {
-//     //     return ques.id === action.payload.quesId;
-//     // });
-//     // console.log("the clicked question", question[0]);
-//     // console.log(
-//     //     "isHeld",
-//     //     (question[0].allAnswers[action.payload.optionId].isHeld)
-//     // );
-//     // question[0].allAnswers[action.payload.optionId].isHeld = true;
-
-//     //console.log("the clicked question", question[0]);
-
-//     current(state).map((ques) => {
-//         if (ques.id === action.payload.quesId) {
-
-//             const opt=ques.allAnswers.map((option) => {
-
-//                 if (option.id == action.payload.optionId) {
-//                     console.log("the clicked qoption", option);
-//                     return {
-//                         ...option,
-//                         isHeld: true,
-//                         styles: { background: "lightblue" },
-//                     };
-//                 } else {
-//                     console.log("wrong option", option.id);
-//                     return option;
-//                 }
-//             });
-//         }
-
-//         return [...ques, ];
-//     });
-//     console.log(current(state));
-//     return [...state]
-// },

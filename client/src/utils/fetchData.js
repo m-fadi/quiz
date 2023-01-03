@@ -4,12 +4,12 @@ const fetchData = ({ url }) => {
     return fetch(url)
         .then((result) => result.json())
         .then((result) => {
-            console.log("result fetchData", result);
+            // console.log("result fetchData",result);
             return result;
         })
         .catch((err) => {
             return {
-                errorMsg: "something went wrong when trying to get data from the server , please try again ...!",
+                errorMsg: "something went wrong , please try again later...!",
             };
         });
 };

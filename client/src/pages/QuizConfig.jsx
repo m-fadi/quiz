@@ -5,11 +5,9 @@ import NumOfQuestions from "../Components/NumOfQuestions";
 import useFetch from "../utils/useFetch";
 import { difficulties, types } from "../utils/typesAndDifficulty";
 import fetchData from "../utils/fetchData";
-import { getQuestions } from "../redux/questionsSlice";
+import { setQuestions } from "../redux/questionsSlice";
 import { sortQuestions } from "../utils/sortQuestions";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { QuizContext } from "../utils/Context.js";
 //--------------------------------------------------------------------------//
 //--------------------------------------------------------------------------//
 
@@ -17,18 +15,12 @@ const QuizConfig = () => {
     const { category, difficulty, type, numberQuestions, score } = useSelector(
         (state) => state.quiz
     );
-    const questions = useSelector((state) => state.questions);
-    console.log("questions from store in QuizConfig", questions);
-    const { gameState, setGameState, setDataLoaded, dataLoaded } =
-        useContext(QuizContext);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [error, setError] = useState("");
-    // fetching Categories from Api with costumed hook useFetch
+
     const { loading, data } = useFetch({
         url: "https://opentdb.com/api_category.php",
     });
-
     if (loading) {
         return data.errorMsg ? (
             <h4 style={{ color: "red" }}> {data.errorMsg}</h4>
@@ -45,42 +37,22 @@ const QuizConfig = () => {
         (category && `&category=${category.id}`) +
         (difficulty && `&difficulty=${difficulty}`) +
         (type && `&type=${type}`);
-    console.log("quizUrl in QuizConig", quizUrl);
 
     const handleSubmit = (e) => {
-        console.log("quizUrl in QuizConig", quizUrl);
-        console.log(
-            "questions in QuizConfig on submit quizQonfig",
-            questions.length
-        );
-
         e.preventDefault();
         fetchData({ url: quizUrl }).then((result) => {
-            if (!result) {
-                setError(
-                    "No Results. The API doesn't have enough questions for your query"
-                );
-                return ;
-            }
             const questionsList = sortQuestions(result.results);
-
-            dispatch(getQuestions(questionsList));
-            console.log(
-                "question list in QuizConfig to be dispatched",
-                questionsList
-            );
+           
+            dispatch(setQuestions(questionsList));
             navigate("/quiz");
         });
     };
-
-     
 
     return (
         <>
             {data.errorMsg && (
                 <h4 style={{ color: "red" }}> {data.errorMsg}</h4>
             )}
-            
             {!data.errorMsg && (
                 <form
                     onSubmit={handleSubmit}

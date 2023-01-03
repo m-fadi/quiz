@@ -1,9 +1,11 @@
 import { createRoot } from "react-dom/client";
 import store from "../src/redux/store";
 import { Provider } from "react-redux";
-import App from "./App";
+import Registration from "../src/pages/Registration";
+import Home from "../src/pages/Home";
 import Welcome from "../src/pages/welcome";
 
+import App from "./App";
 const root = createRoot(document.querySelector("main"));
 
 fetch("/user/id.json")
@@ -17,6 +19,10 @@ fetch("/user/id.json")
                 </Provider>
             );
         } else {
-            root.render(<Welcome />);
+            root.render(
+                <Provider store={store}>
+                    <Welcome />
+                </Provider>
+            );
         }
     });

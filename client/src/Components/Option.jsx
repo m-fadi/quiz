@@ -1,28 +1,58 @@
 import { useSelector, useDispatch } from "react-redux";
-//import { updateIsHeld } from "../redux/questionsSlice";
-import { useContext, useEffect, useState } from "react";
+
+import {
+
+    updateIsHeld,
+} from "../redux/questionsSlice";
+import he from "he";
+
 const Option = (props) => {
-    //const questions = useSelector((state) => state.questions);
-    // const { questionId } = props;
-    // const finished = true;
-    // const questions = useSelector((state) => state.questions);
-    //const [quizData, setQuizData] = useState(questions);
-    //dispatch(updateIsHeld({ isHeld: true, quesId:questionId,optionId:e.target.id}));
-console.log("option component rerendered");
-    console.log("all answers", props.allAnswers);
+    const {questions, score} = useSelector((state) => state.questions);
+    const { questionId } = props;
+    console.log("score in option", score)
+    const dispatch = useDispatch();
+    console.log(
+        "all answers in option",
+        useSelector((state) => state.questions)
+    );
+    const handleClick = (e) => {
+        console.log("the clicked question", questions[questionId].allAnswers);
+        const updatedQuestion = questions[questionId].allAnswers.map(
+            (answer) => {
+                if (answer.id == e.target.id) {
+                    console.log("clicked answer", answer);
+                    console.log("the clicked option in options", e.target);
+                    return {
+                        ...answer,
+                        isHeld: true,
+                        styles: {background: answer.isCorrect ? "green" : "red" },
+                    };
+                } else {
+                    return {
+                        ...answer,
+                        isHeld: false,
+                        styles: {
+                            background: answer.isCorrect ? "green" : "white",
+                        },
+                    };
+                }
+            }
+        );
+
+        dispatch(updateIsHeld({ updatedQuestion, questionId }));
+    };
     const optionsList = props.allAnswers.map((option, index) => {
-        if (option.isHeld) console.log("held option", option);
         const styles = { background: option.isHeld ? "lightblue" : "white" };
+
         return (
             <div
-                // style={!finished ? styles : option.style}
-                style={{ styles }}
+                style={!score ? styles : option.styles}
                 className="option"
-                id={index}
-                onClick={() => props.updateIsHeld(props.questionId, option.id)} // dispatch (style:clor: lightblue/ isHeld:true)
-                key={index} // key: correctAnswer
+                id={option.id}
+                onClick={(e) => handleClick(e)}
+                key={index} 
             >
-                {option.value}
+                {he.decode(option.value)}
             </div>
         );
     });
