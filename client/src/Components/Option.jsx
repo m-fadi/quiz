@@ -16,6 +16,9 @@ const Option = (props) => {
         useSelector((state) => state.questions)
     );
     const handleClick = (e) => {
+        // if the score exist => result submitted => dont allow it to submit again
+        if(score) return 
+        
         console.log("the clicked question", questions[questionId].allAnswers);
         const updatedQuestion = questions[questionId].allAnswers.map(
             (answer) => {
