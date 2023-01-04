@@ -1,26 +1,22 @@
 import { useSelector, useDispatch } from "react-redux";
 import Question from "./Question";
-import { useEffect, useState } from "react";
-import {updateScore } from "../redux/questionsSlice";
-import { useNavigate } from "react-router-dom";
+import { updateScore } from "../redux/questionsSlice";
+
 //-------------------------------------------------------------------//
 const Quiz = () => {
     const dispatch = useDispatch();
-    const {questions, score} = useSelector((state) => state.questions);
+    const { questions, score } = useSelector((state) => state.questions);
     if (!questions.length) location.replace("/");
-    let count=0;
+    let count = 0;
     const submitAnswers = () => {
-        
-
         questions.map((question) => {
-            question.allAnswers.map(answer=>{
-                if(answer. isHeld && answer.isCorrect){
-
-                    count ++;
+            question.allAnswers.map((answer) => {
+                if (answer.isHeld && answer.isCorrect) {
+                    count++;
                 }
-            })
+            });
         });
-        dispatch(updateScore(count))
+        dispatch(updateScore(count));
     };
     return (
         <div>

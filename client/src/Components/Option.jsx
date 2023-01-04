@@ -1,15 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-
-    updateIsHeld,
-} from "../redux/questionsSlice";
+import { updateIsHeld } from "../redux/questionsSlice";
 import he from "he";
 
 const Option = (props) => {
-    const {questions, score} = useSelector((state) => state.questions);
+    const { questions, score } = useSelector((state) => state.questions);
     const { questionId } = props;
-    console.log("score in option", score)
+    console.log("score in option", score);
     const dispatch = useDispatch();
     console.log(
         "all answers in option",
@@ -17,8 +14,8 @@ const Option = (props) => {
     );
     const handleClick = (e) => {
         // if the score exist => result submitted => dont allow it to submit again
-        if(score) return 
-        
+        if (score) return;
+
         console.log("the clicked question", questions[questionId].allAnswers);
         const updatedQuestion = questions[questionId].allAnswers.map(
             (answer) => {
@@ -28,7 +25,9 @@ const Option = (props) => {
                     return {
                         ...answer,
                         isHeld: true,
-                        styles: {background: answer.isCorrect ? "green" : "red" },
+                        styles: {
+                            background: answer.isCorrect ? "green" : "red",
+                        },
                     };
                 } else {
                     return {
@@ -53,7 +52,7 @@ const Option = (props) => {
                 className="option"
                 id={option.id}
                 onClick={(e) => handleClick(e)}
-                key={index} 
+                key={index}
             >
                 {he.decode(option.value)}
             </div>

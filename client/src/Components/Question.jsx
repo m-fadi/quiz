@@ -1,7 +1,7 @@
 import he from "he";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Option from "./Option";
-export default function Question(props) {
+export default function Question() {
     const questions = useSelector((state) => state.questions.questions);
 
     // const questionList =  questions.map((question, index) => {
@@ -17,12 +17,10 @@ export default function Question(props) {
                 <Option
                     allAnswers={question.allAnswers}
                     questionId={question.id}
-                    
                 />
             </div>
         );
     });
-   
-    return <div>{questionList}</div>;
 
+    return <div>{questionList}</div>;
 }

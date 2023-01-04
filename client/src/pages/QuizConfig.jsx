@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 //--------------------------------------------------------------------------//
 
 const QuizConfig = () => {
-    const { category, difficulty, type, numberQuestions, score } = useSelector(
+    const { category, difficulty, type, numberQuestions} = useSelector(
         (state) => state.quiz
     );
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ const QuizConfig = () => {
         e.preventDefault();
         fetchData({ url: quizUrl }).then((result) => {
             const questionsList = sortQuestions(result.results);
-           
+
             dispatch(setQuestions(questionsList));
             navigate("/quiz");
         });
