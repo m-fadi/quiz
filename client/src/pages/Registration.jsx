@@ -1,42 +1,52 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-export default function Register() {
+import { useSelector, useDispatch } from "react-redux";
+import { setUserData } from "../redux/userDataSlice";
+export default function Registration() {
+    const dispatch = useDispatch();
     const [error, setError] = useState("");
-
-    const [userData, setUserData] = useState({});
+    
+    
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
+
     function handleChange(e) {
         if (e.target.value === "") setError("please fill the fields");
-        setFormData((prevFormData) => {
+        setFormData((prev) => {
             return {
-                ...prevFormData,
+                ...prev,
                 [e.target.name]: e.target.value,
             };
         });
+        // console.log("userData in regestration", userData)
+       
     }
+
     function handleSubmit(e) {
         e.preventDefault();
+
         console.log("About to submit the form!");
         console.log(formData);
-        fetch("/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((result) => {
-                console.log("results in app", result);
-                if (result.success) {
-                    navigate("/App");
-                    //location.reload();
-                    setUserData(...userData, result.data);
-                    console.log("userData at reg", userData);
-                } else setError(result.message);
-            });
+         dispatch(setUserData(formData));
+        // fetch("/register", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(userData),
+        // })
+        //     .then((response) => {
+        //         return response.json();
+        //     })
+        //     .then((result) => {
+        //         console.log("results in app", result);
+        //         if (result.success) {
+        //             navigate("/App");
+        //             //location.reload();
+        //             dispatch(setUserData(result.data))
+        //             setUserData(...userData, result.data);
+        //             console.log("userData at reg", userData);
+        //         } else setError(result.message);
+        //     });
     }
 
     return (
@@ -47,7 +57,7 @@ export default function Register() {
                     type="text"
                     placeholder="First Name"
                     onChange={handleChange}
-                    name="firstname"
+                    name="firstName"
                     className="register-input"
                     required
                 />
@@ -55,7 +65,7 @@ export default function Register() {
                     type="text"
                     placeholder="Last Name"
                     onChange={handleChange}
-                    name="lastname"
+                    name="lastName"
                     className="register-input"
                     required
                 />
