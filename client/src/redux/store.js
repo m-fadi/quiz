@@ -7,7 +7,7 @@ const store = configureStore({
     reducer: {
         quiz: quizReducer,
         questions: questionsReducer,
-        userData:userDataReducer,
+        user:userDataReducer,
 
     },
 });

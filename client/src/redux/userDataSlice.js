@@ -12,7 +12,7 @@ export const userDataSlice = createSlice({
     reducers: {
         setUserData: (state, action) => {
             console.log("setUserData payload", action.payload);
-            return { ...state, user: action.payload };
+            return { ...action.payload };
         },
         // handleLastName: (state, action) => {
         //     console.log("SSSSlice diff", action.payload);
