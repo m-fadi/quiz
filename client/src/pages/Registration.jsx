@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserData } from "../redux/userDataSlice";
-export default function Registration() {
+import createUser  from "../utils/createUser";
+export default  function Registration() {
     const dispatch = useDispatch();
     const [error, setError] = useState("");
     
-    
+
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
 
@@ -19,36 +20,16 @@ export default function Registration() {
                 [e.target.name]: e.target.value,
             };
         });
-        // console.log("userData in regestration", userData)
-       
+
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
+        const userData= await createUser(formData);
+        dispatch(setUserData(userData))
+        navigate('/profile')
 
-        console.log("About to submit the form!");
-        console.log(formData);
-         dispatch(setUserData(formData));
-        // fetch("/register", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(userData),
-        // })
-        //     .then((response) => {
-        //         return response.json();
-        //     })
-        //     .then((result) => {
-        //         console.log("results in app", result);
-        //         if (result.success) {
-        //             navigate("/App");
-        //             //location.reload();
-        //             dispatch(setUserData(result.data))
-        //             setUserData(...userData, result.data);
-        //             console.log("userData at reg", userData);
-        //         } else setError(result.message);
-        //     });
     }
-
     return (
         <div>
             <h5 className="errorMessage">{error}</h5>
