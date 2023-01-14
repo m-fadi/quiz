@@ -5,6 +5,8 @@ import Score from "./pages/Score";
 import { Container } from "@mui/material";
 import { Box } from "@mui/system";
 import Registration from "../src/pages/Registration";
+import Profile from "../src/Components/Profile";
+
 
 const App = () => {
     return (
@@ -13,12 +15,9 @@ const App = () => {
                 {/* <nav></nav> */}
                 <Box textAlign="center" mt={5}>
                     <Routes>
-                        
                         <Route path="/quiz" element={<Quiz />}></Route>
-                        <Route
-                            path="/"
-                            element={<QuizConfig />}
-                        ></Route>
+                        <Route path="/profile" element={<Profile />}></Route>
+                        <Route path="/" element={<QuizConfig />}></Route>
                         <Route path="/quiz" element={<Quiz />}></Route>
                         <Route path="/score" element={<Score />}></Route>
                     </Routes>
