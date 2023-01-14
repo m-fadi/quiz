@@ -4,22 +4,18 @@ const { USER, PASSWORD, DATABASE } = process.env;
 
 const db = spicedPg(
     process.env.DATABASE_URL ||
-        `postgres:${USER}:${PASSWORD}@localhost:5432/${DATABASE}`
+        `postgres:${process.env.USER}:${PASSWORD}@localhost:5432/${DATABASE}`
 );
 
-function createUser({
-    firstname,
-    lastname,
-    email,
-    hashedPassword,
-    created_at,
-}) {
+function createUser(data) {
+    console.log("data create user db bF", data)
+    const { firstName, lastName, email, password } = data;
     return db
         .query(
-            `INSERT INTO users (firstname, lastname, email,password,created_at)
-            VALUES ($1, $2, $3,$4,$5)
+            `INSERT INTO users (firstName, lastName, email,password)
+            VALUES ($1, $2, $3,$4)
             RETURNING *`,
-            [firstname, lastname, email, hashedPassword, created_at]
+            [firstName, lastName, email, password]
         )
         .then((result) => {
             // console.log("result insert user db", result.rows[0]);

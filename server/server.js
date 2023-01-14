@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 //const cookieParser = require("cookie-parser");
 const { PORT = 3001 } = process.env;
 
@@ -12,42 +12,43 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 90,
     })
 );
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 const { createUser, getUserByEmail } = require("./database/db");
 //-----------------------------------------------------------------------------//
 app.get("/user/id.json", (req, res) => {
     // console.log("session in Server", req.session);
-    // const { id } = req.session;
+     const { id } = req.session;
+     
     res.status(200).json({
-        userId: 1,
+        userId: id,
         //firstName: req.session.firstname,
     });
 });
 app.post("/register", (req, res) => {
-    console.log(req.body);
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-    
-    const { firstname, lastname, email } = req.body;
-
-    const created_at = new Date();
-    //console.log("insert user server before", firstname, lastname, email);
-    createUser({ firstname, lastname, email, hashedPassword, created_at }).then(
-        (result) => {
-            console.log("result ", result);
-            if (result.error) {
-                return res.json({
-                    success: false,
-                    message: "something went Wrong!",
-                });
-            }
-            req.session = { ...result };
+    let data = req.body.data;
+    const hashedPassword = bcrypt.hashSync(data.password, 10);
+    data = { ...data, password: hashedPassword};
+    createUser(data).then((result) => {
+        if (result.error) {
             return res.json({
-                success: true,
-                data: result,
+                success: false,
+                message: "something went Wrong!",
             });
         }
-    );
+        req.session = { ...result };
+        return res.json({
+            success: true,
+           result,
+        });
+    });
 });
 //--------------------------------Login-------------------------------------------------
 
