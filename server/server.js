@@ -25,8 +25,8 @@ const { createUser, getUserByEmail } = require("./database/db");
 //-----------------------------------------------------------------------------//
 app.get("/user/id.json", (req, res) => {
     // console.log("session in Server", req.session);
-     const { id } = req.session;
-     
+    const { id } = req.session;
+
     res.status(200).json({
         userId: id,
         //firstName: req.session.firstname,
@@ -35,7 +35,7 @@ app.get("/user/id.json", (req, res) => {
 app.post("/register", (req, res) => {
     let data = req.body.data;
     const hashedPassword = bcrypt.hashSync(data.password, 10);
-    data = { ...data, password: hashedPassword};
+    data = { ...data, password: hashedPassword };
     createUser(data).then((result) => {
         if (result.error) {
             return res.json({
@@ -46,7 +46,7 @@ app.post("/register", (req, res) => {
         req.session = { ...result };
         return res.json({
             success: true,
-           result,
+            result,
         });
     });
 });
