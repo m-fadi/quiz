@@ -24,6 +24,7 @@ export default function Registration() {
     async function handleSubmit(e) {
         e.preventDefault();
         const userData = await createUser(formData);
+        console.log("user in regesteration",userData)
         dispatch(setUserData(userData));
         navigate("/profile");
     }

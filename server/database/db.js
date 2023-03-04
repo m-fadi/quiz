@@ -96,13 +96,15 @@ function getUserData(userId, id, targetDataTable) {
 }
 
 function getUserByEmail(email) {
+    console.log("email", email)
     return db
         .query("SELECT * FROM users WHERE email = $1 ", [email])
         .then((result) => {
+            
             if (result.rowCount === 0) {
                 return 0;
             }
-            // console.log("user by email db, ", result.rows[0]);
+             console.log("user by email db, ", result.rows[0]);
             return result.rows[0];
         })
         .catch((error) => console.log(error));

@@ -53,11 +53,12 @@ app.post("/register", (req, res) => {
 //--------------------------------Login-------------------------------------------------
 
 app.post("/login", (req, res) => {
-    //console.log("req.bodyEmail server", req.body);
+    console.log("req.bodyEmail server", req.body);
     const { password, email } = req.body;
 
     getUserByEmail(email).then((result) => {
         if (!result) {
+            console.log("no result 0",result)
             return res.json({
                 success: false,
                 message: "Email doesn't exist",
@@ -73,10 +74,10 @@ app.post("/login", (req, res) => {
             });
         }
         req.session = { ...result };
-        //console.log("session after login", req.session);
+        console.log("result after login", result);
         return res.json({
             success: true,
-            data: result.id,
+            data: result,
         });
     });
 });
