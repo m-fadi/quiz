@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import Login from '../Components/Login'
 import Registration from "./Registration";
 import Home from "./Home";
 //import Login from "./login";
@@ -26,6 +26,7 @@ export default function Welcome() {
                          "
                             element={<Home />}
                         ></Route>
+                        <Route path="/login" element={<Login />}></Route>
                         {/* <Route
                             path="/resetPassword"
                             element={<ResetPassword />}

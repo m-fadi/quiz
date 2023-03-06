@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
 };
@@ -14,6 +14,11 @@ export const userDataSlice = createSlice({
             console.log("setUserData payload", action.payload);
             return { ...action.payload };
         },
+    },
+});
+export const { setUserData } = userDataSlice.actions;
+
+export default userDataSlice.reducer;
         // handleLastName: (state, action) => {
         //     console.log("SSSSlice diff", action.payload);
         //     return { ...state, lastName: action.payload.level };
@@ -26,8 +31,4 @@ export const userDataSlice = createSlice({
         //     console.log("SSSSlice number", action.payload);
         //     return { ...state, password: action.payload };
         // },
-    },
-});
-export const { setUserData } = userDataSlice.actions;
 
-export default userDataSlice.reducer;
