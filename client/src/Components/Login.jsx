@@ -72,7 +72,8 @@
 //     );
 // }
 
-import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -95,7 +96,7 @@ export default function Login() {
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     };
-
+    const navigate = useNavigate();
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
@@ -114,7 +115,7 @@ export default function Login() {
                 console.log("response", response.data);
                 if (response.success) {
                     dispatch(setUserData(response.data));
-                    location.replace("/profile");
+                    navigate("/profile");
                 } else {
                     console.log("no success");
                 }

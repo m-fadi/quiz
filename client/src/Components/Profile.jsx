@@ -19,10 +19,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Profile(props) {
+function Profile() {
     const classes = useStyles();
     const user = useSelector((state) => state.user);
-    console.log("user at profile",useSelector((state) => state.user));
+
+    console.log(
+        "user at profile",
+        useSelector((state) => state.user)
+    );
+    console.log("user at profile user", user);
     return (
         <Grid container justifyContent="center">
             <Grid
@@ -33,26 +38,26 @@ function Profile(props) {
             >
                 <Avatar
                     className={classes.avatar}
-                    src={props.avatarUrl}
+                    src={user.image_url}
                     alt="Profile Picture"
                 />
             </Grid>
             <Grid item xs={12} md={8}>
                 <Paper className={classes.paper}>
                     <Typography variant="h5" component="h3">
-                        {props.name}
+                        {user.firstname}
                     </Typography>
                     <Typography variant="subtitle1" component="h6">
-                        @{props.username}
+                        @{user.lastname}
                     </Typography>
                     <Typography variant="body1" component="p">
-                        {props.bio}
+                        {user.bio}
                     </Typography>
                     <Typography variant="body2" component="p">
-                        {props.location}
+                        {user.location}
                     </Typography>
                     <Typography variant="body2" component="p">
-                        {props.website}
+                        {user.website}
                     </Typography>
                     <Grid container justify="center">
                         <Grid item>
