@@ -58,7 +58,7 @@ app.post("/login", (req, res) => {
 
     getUserByEmail(email).then((result) => {
         if (!result) {
-            console.log("no result 0",result)
+            console.log("no result 0", result);
             return res.json({
                 success: false,
                 message: "Email doesn't exist",
