@@ -8,13 +8,14 @@ DROP TABLE IF EXISTS friensships;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    firstname VARCHAR(255) NOT NULL CHECK(firstname!=''),
-    lastname VARCHAR(255) NOT NULL CHECK(lastname!=''),
+    firstName VARCHAR(255) NOT NULL CHECK(firstName!=''),
+    lastName VARCHAR(255) NOT NULL CHECK(lastName!=''),
     email VARCHAR(255) NOT NULL UNIQUE CHECK(email!=''),
     password VARCHAR(255) NOT NULL CHECK(password!=''),
     image_url VARCHAR ,
-    
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    
+    
 );
 CREATE TABLE reset_codes (
     id SERIAL PRIMARY KEY ,
