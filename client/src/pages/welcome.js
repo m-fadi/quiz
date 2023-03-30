@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from '../Components/Login'
 import Registration from "./Registration";
 import Home from "./Home";
+import Profile from "../Components/Profile";
 //import Login from "./login";
 //import ResetPassword from "./resetPassword";
 
@@ -12,6 +13,7 @@ export default function Welcome() {
             <div>
                 <BrowserRouter>
                     <Routes>
+                        <Route path="/profile" element={<Profile />}></Route>
                         <Route
                             exact
                             path="/"
